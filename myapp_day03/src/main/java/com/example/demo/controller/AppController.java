@@ -109,4 +109,32 @@ public class AppController {
 	    
 	    return sortedStudents;
    }
+	@PostMapping("/add")
+    public String addStudent(@RequestBody Student student) {
+        students.add(student);
+        return "Student added successfully!";
+    }
+
+    @PutMapping("/{regNo}")
+    public String updateStudent(@PathVariable("regNo") String regNo, @RequestBody Student updatedStudent) {
+        for (int i = 0; i < students.size(); i++) {
+            if (students.get(i).getRegNo().equalsIgnoreCase(regNo)) {
+                students.set(i, updatedStudent);
+                return "Student updated successfully!";
+            }
+        }
+        return "Student not found!";
+    }
+
+    @DeleteMapping("/{regNo}")
+    public String deleteStudent(@PathVariable("regNo") String regNo) {
+        for (int i = 0; i < students.size(); i++) {
+            if (students.get(i).getRegNo().equalsIgnoreCase(regNo)) {
+                students.remove(i);
+                return "Student deleted successfully!";
+            }
+        }
+        return "Student not found!";
+    }
+
 }
